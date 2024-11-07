@@ -24,4 +24,11 @@
                 // 3 represents measuring data
             // Depending on the index, simulate current changes on the planet
                 // If it's a dust storm, reduce the temperature and rock abundance value (erosion of rocks)
-                // 
+                // If it's a volcanic erruption, increase the temperature and rock abundance value
+                // If it's measuring data, display and add new data to the map
+            // Once changes have been simulated, display the potential effect of these changes on the spacecraft
+                // Spacecraft breaks down (can't withstand heat), etc.
+
+            // Wait or pause briefly to simulate the passage of 3 years between intervals
+// End of main function
+

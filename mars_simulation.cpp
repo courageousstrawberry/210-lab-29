@@ -1,5 +1,9 @@
 // Include necessary headers for file handling, data structures, etc.
+// All data is from same position: latitude 4.5, longitude 137.4
+// This is near the Gale Crater on Mars, which is where the Curiosity Rover is located
 #include <iostream>
+#include <map>
+#include <fstream>
 
 using namespace std;
 // Define a class to represent Mars as a planet
@@ -14,13 +18,15 @@ class Planet{
     // Initialize a map to store Mars climate data for each year
         // Each key contains an array of lists for surface temperature, sun distance and rock abundance
 int main() {
+    fstream file;
 // Open an external file to read initial data about previous climate conditions on Mars
         // If file does not open, print an error and exit
-
+    while(file.open("mars_data.txt")) {
     // Read data from file and populate map
         // For each line, extract surface temperature, sun distance, and rock abundance data
 
     // Close the file
+    }
 
     // Begin a time-based simulation for environmental changes
         // Randomly pick an index for a year on the map, these will be the starting conditions

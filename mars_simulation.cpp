@@ -21,12 +21,14 @@ int main() {
     fstream file;
 // Open an external file to read initial data about previous climate conditions on Mars
         // If file does not open, print an error and exit
-    while(file.open("mars_data.txt")) {
+    file.open("mars_data.txt", ios::in);
     // Read data from file and populate map
         // For each line, extract surface temperature, sun distance, and rock abundance data
-
-    // Close the file
+    if (!file.is_open()) {
+        cerr << "Error opening file." << endl;
+        return 1;
     }
+    // Close the file
 
     // Begin a time-based simulation for environmental changes
         // Randomly pick an index for a year on the map, these will be the starting conditions

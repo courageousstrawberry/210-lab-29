@@ -1,12 +1,19 @@
 // Include necessary headers for file handling, data structures, etc.
+#include <iostream>
 
+using namespace std;
 // Define a class to represent Mars as a planet
     // Private variables: current temperature, distance from sun, season
-
+class Planet{
+    private:
+        double temperature;
+        double sun_distance;
+        string season;
+};
 // Define main function
     // Initialize a map to store Mars climate data for each year
         // Each key contains an array of lists for surface temperature, sun distance and rock abundance
-
+int main() {
 // Open an external file to read initial data about previous climate conditions on Mars
         // If file does not open, print an error and exit
 
@@ -31,4 +38,5 @@
 
             // Wait or pause briefly to simulate the passage of 3 years between intervals
 // End of main function
+}
 

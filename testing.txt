@@ -1,0 +1,19 @@
+First, I input some testing data into my data file.
+I use error handling to try to figure out what the issue
+with opening the file and reading the data.
+
+When I create the main body of the simulation, I will add
+setters and getter functions to my Planet class.
+
+I will also add separate functions for each simulation of
+a dust storm, a volcanic erruption, and the spaceship collecting
+more data.
+
+For the function to collect data, I need to create a function that
+will properly take user input, check user input validity,
+and store the data in the map object.
+
+The test for my collect data function, through output statements, will
+make sure that the map object is correctly referenced in the function
+(instead of creating a new map), and it will then verify that all data 
+was stored correctly in the map object.

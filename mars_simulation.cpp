@@ -12,7 +12,7 @@ class Planet{
     private:
         double temperature;
         double sun_distance;
-        string season;
+        string time;
 };
 // Define main function
     // Initialize a map to store Mars climate data for each year

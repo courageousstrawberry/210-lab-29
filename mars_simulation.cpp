@@ -25,6 +25,7 @@ int main()
 {
     vector<Planet> current;
     vector<Planet> data;
+    
     fstream file;
     // Open an external file to read initial data about previous climate conditions on Mars
     // If file does not open, print an error and exit

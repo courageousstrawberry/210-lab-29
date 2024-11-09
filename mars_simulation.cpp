@@ -3,6 +3,7 @@
 // This is near the Gale Crater on Mars, which is where the Curiosity Rover is located
 #include <iostream>
 #include <map>
+#include <vector
 #include <fstream>
 #include <sstream>
 

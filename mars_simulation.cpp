@@ -33,11 +33,25 @@ public:
     double get_date(){
         return date;
     }
+    double get_sunD() {
+        return sun_distance;
+    }
+    int get_time() {
+        return time;
+    }
     void set_date(int d) {
         date = d;
     }
     void display_info() {
         cout << "Date: " << date << ", Sun Distance: " << sun_distance << "Time: " << time << endl;
+    }
+    void increment_time() {
+        if (time + 1 < 24) {
+            time += 1;
+        }
+        else {
+            time = 0;
+        }
     }
     double dust_storm(int d) {
         return temperature - d;
@@ -109,7 +123,7 @@ int main()
         }
         cout << endl;
         
-        cout << "Rock Abundances (Time): ";
+        cout << "Time: ";
         for (const auto& abundance : data[year][2]) {
             cout << abundance << " ";
         }
@@ -140,11 +154,11 @@ int main()
             // 2 represents a volccanic erruption
             // 3 represents measuring data
             // Depending on the index, simulate current changes on the planet
-            // If it's a dust storm, reduce the temperature and rock abundance value (erosion of rocks)
-            // If it's a volcanic erruption, increase the temperature and rock abundance value
+            // If it's a dust storm, reduce the temperature
+            // If it's a volcanic erruption, increase the temperature
             // If it's measuring data, display and add new data to the map
             // Once changes have been simulated, display the potential effect of these changes on the spacecraft
-            // Spacecraft breaks down (can't withstand heat), etc.
+            // Spacecraft might break down due to inability of withstanding heat
             case 1:
                 // Randomly decide how much the temperature (kelvin) of the current planet will decrease
                 int decrease = 2 + rand() % 10;
@@ -163,6 +177,15 @@ int main()
                 }
                 break;
             case 3:
+                cout << "Measure current planet data..." << endl;
+                cout << "Current year: " << current.get_date() << endl;
+                cout << "Temperature (in Kelvin): " << current.get_temp() << endl;
+                cout << "Solar Distance: " << current.get_sunD() << endl; // This value will stay the same to simplify simulation
+                cout << "Local Time: " << current.get_time() << endl;
+
+                data[current.get_date()][0].push_back(current.get_temp());
+                data[current.get_date()][1].push_back(current.get_sunD());
+                data[current.get_date()][2].push_back(current.get_time());
                 break;
         }
 
@@ -175,6 +198,10 @@ int main()
 
         // Wait or pause briefly to simulate the passage of 3 years between intervals
         count++;
+        current.increment_time();
+        current.set_date(current.get_date() + 3);
+        cout << "Press Enter to continue...";
+        cin.get();
     }
     // End of main function
 

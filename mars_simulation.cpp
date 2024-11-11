@@ -3,6 +3,8 @@
 // This is near the Gale Crater on Mars, which is where the Curiosity Rover is located
 #include <iostream>
 #include <map>
+#include <list>
+#include <array>
 #include <fstream>
 #include <sstream>
 
@@ -15,15 +17,22 @@ private:
     string date;
     double temperature;
     double sun_distance;
-    string time;
+    int time;
+public:
+    Planet(string d, double t, double s, int ti) {
+        date = d;
+        temperature = t;
+        sun_distance = s;
+        time = ti;
+    }
 };
 // Define main function
 // Initialize a map to store Mars climate data for each year
 // Each key contains an array of lists for surface temperature, sun distance and rock abundance
 int main()
 {
-    vector<Planet> current;
-    vector<Planet> data;
+    map<string, array<list<double>, 3>> data;
+    
     fstream file;
     // Open an external file to read initial data about previous climate conditions on Mars
     // If file does not open, print an error and exit
@@ -50,8 +59,15 @@ int main()
             cerr << "Error reading line: " << line << endl;
             continue;
         }
+        else {
+            data[date][0].push_back(surfaceTemp);
+            data[date][1].push_back(sunDistance);
+            data[date][2].push_back(time);
+        }
     }
     // Close the file
+
+    file.close();
 
     // Begin a time-based simulation for environmental changes
     // Randomly pick an index for a year on the map, these will be the starting conditions

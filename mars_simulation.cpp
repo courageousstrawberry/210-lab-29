@@ -16,16 +16,19 @@ using namespace std;
 class Planet
 {
 private:
-    string date;
+    int date;
     double temperature;
     double sun_distance;
     int time;
 public:
-    Planet(string d, double t, double s, int ti) {
+    Planet(int d, double t, double s, int ti) {
         date = d;
         temperature = t;
         sun_distance = s;
         time = ti;
+    }
+    void display_info() {
+        cout << "Date: " << date << ", Sun Distance: " << sun_distance << "Time: " << time << endl;
     }
 };
 
@@ -103,30 +106,40 @@ int main()
 
     // Begin a time-based simulation for environmental changes
     // Randomly pick an index for a year on the map, these will be the starting conditions
-    /*
+
     srand(time(0));
     auto it = data.begin();
     advance(it, rand() % data.size());
 
-    string selected_date = it->first;
-    double initial_temperature = it->second[0].front();
-    double initial_sun_distance = it->second[1].front();
-    int initial_time = it->second[2].front();
+    Planet current(it->first, it->second[0].front(), it->second[1].front(), it->second[2].front());
+    current.display_info();
 
-    Planet current_conditions(it->first, it->second[0].front(), data[year][1], data[year][2]);
-    */
     // For 30 time intervals (each time interval represents 3 earth-years)
-    // Randomly pick an index from 1-3,
-    // 1 represents a dust storm
-    // 2 represents a volccanic erruption
-    // 3 represents measuring data
-    // Depending on the index, simulate current changes on the planet
-    // If it's a dust storm, reduce the temperature and rock abundance value (erosion of rocks)
-    // If it's a volcanic erruption, increase the temperature and rock abundance value
-    // If it's measuring data, display and add new data to the map
-    // Once changes have been simulated, display the potential effect of these changes on the spacecraft
-    // Spacecraft breaks down (can't withstand heat), etc.
+    int count = 0;
+    int index = 0;
+    while (count < 30) {
+        // Randomly pick an index from 1-3,
+        index = 1 + rand() % 3;
+        switch(index){
+            // 1 represents a dust storm
+            // 2 represents a volccanic erruption
+            // 3 represents measuring data
+            // Depending on the index, simulate current changes on the planet
+            // If it's a dust storm, reduce the temperature and rock abundance value (erosion of rocks)
+            // If it's a volcanic erruption, increase the temperature and rock abundance value
+            // If it's measuring data, display and add new data to the map
+            // Once changes have been simulated, display the potential effect of these changes on the spacecraft
+            // Spacecraft breaks down (can't withstand heat), etc.
+            case 1:
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+        }
 
-    // Wait or pause briefly to simulate the passage of 3 years between intervals
+        // Wait or pause briefly to simulate the passage of 3 years between intervals
+        count++;
+    }
     // End of main function
 }

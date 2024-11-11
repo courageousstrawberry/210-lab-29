@@ -158,24 +158,29 @@ int main()
             // If it's measuring data, display and add new data to the map
             // Once changes have been simulated, display the potential effect of these changes on the spacecraft
             // Spacecraft might break down due to inability of withstanding heat
-            case 1:
+            case 1: {
                 // Randomly decide how much the temperature (kelvin) of the current planet will decrease
                 int decrease = 2 + rand() % 10;
                 current.dust_storm(decrease);
+                cout << "Mars Dust Storm! Temperature decreased." << endl;
                 break;
-            case 2:
+            }
+            case 2: {
                 // Randomly decide if it's a small or large erruption
                 int erruption = 1 + rand() % 2;
                 if (erruption == 1) {
                     // Small erruption
                     current.volcano(5);
+                    cout << "Small volcanic erruption! Temperature increased." << endl;
                 }
                 else if (erruption == 2) {
                     // Large erruption
                     current.volcano(20);
+                    cout << "Large volcanic erruption! Temperature increased." << endl;
                 }
                 break;
-            case 3:
+            }
+            case 3: {
                 cout << "Measure current planet data..." << endl;
                 cout << "Current year: " << current.get_date() << endl;
                 cout << "Temperature (in Kelvin): " << current.get_temp() << endl;
@@ -186,13 +191,14 @@ int main()
                 data[current.get_date()][1].push_back(current.get_sunD());
                 data[current.get_date()][2].push_back(current.get_time());
                 break;
+            }
         }
 
         // Check for spacecraft stats
         // If planet temp >= 373K, the spacecraft fails and program exits
         if (current.get_temp() >= 373) {
             cout << "Error, spacecraft systems failing. Major damage sustained..." << endl;
-            return;
+            exit(EXIT_FAILURE);
         }
 
         // Wait or pause briefly to simulate the passage of 3 years between intervals
@@ -202,7 +208,18 @@ int main()
         cout << "Press Enter to continue...";
         cin.get();
     }
-    // End of main function
 
+    cout << "Simulation ended, taking final measurements!" << endl;
+    cout << "Measure current planet data..." << endl;
+    cout << "Current year: " << current.get_date() << endl;
+    cout << "Temperature (in Kelvin): " << current.get_temp() << endl;
+    cout << "Solar Distance: " << current.get_sunD() << endl; // This value will stay the same to simplify simulation
+    cout << "Local Time: " << current.get_time() << endl;
+
+    data[current.get_date()][0].push_back(current.get_temp());
+    data[current.get_date()][1].push_back(current.get_sunD());
+    data[current.get_date()][2].push_back(current.get_time());
+    
+    // End of main function
     return 0;
 }

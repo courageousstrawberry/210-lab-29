@@ -27,8 +27,23 @@ public:
         sun_distance = s;
         time = ti;
     }
+    double get_temp(){
+        return temperature;
+    }
+    double get_date(){
+        return date;
+    }
+    void set_date(int d) {
+        date = d;
+    }
     void display_info() {
         cout << "Date: " << date << ", Sun Distance: " << sun_distance << "Time: " << time << endl;
+    }
+    double dust_storm(int d) {
+        return temperature - d;
+    }
+    double volcano(int v) {
+        return temperature + v;
     }
 };
 
@@ -131,15 +146,37 @@ int main()
             // Once changes have been simulated, display the potential effect of these changes on the spacecraft
             // Spacecraft breaks down (can't withstand heat), etc.
             case 1:
+                // Randomly decide how much the temperature (kelvin) of the current planet will decrease
+                int decrease = 2 + rand() % 10;
+                current.dust_storm(decrease);
                 break;
             case 2:
+                // Randomly decide if it's a small or large erruption
+                int erruption = 1 + rand() % 2;
+                if (erruption == 1) {
+                    // Small erruption
+                    current.volcano(5);
+                }
+                else if (erruption == 2) {
+                    // Large erruption
+                    current.volcano(20);
+                }
                 break;
             case 3:
                 break;
+        }
+
+        // Check for spacecraft stats
+        // If planet temp >= 373K, the spacecraft fails and program exits
+        if (current.get_temp() >= 373) {
+            cout << "Error, spacecraft systems failing. Major damage sustained..." << endl;
+            return;
         }
 
         // Wait or pause briefly to simulate the passage of 3 years between intervals
         count++;
     }
     // End of main function
+
+    return 0;
 }

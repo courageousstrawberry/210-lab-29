@@ -1,0 +1,20 @@
+Unable to correctly read data from file
+- Corrected this by using istringstream and 
+by ignoring the commas when parsing
+
+Map object wouldn't contain the first value of the temperature
+- Fixed parsing to ignore whitespaces when reading from file
+
+Used indexes to acess map values when trying to print out the map
+- Switched to using iterators to access these values
+
+Stored the year 2002 instead of 2024 as the current year
+- Changed the year of the planet object
+
+Local time wasn't changing through the simulation
+- Added an increment time function to increment the local time as
+the simulation progressed
+
+Current year wasn't changing
+- Added a function to set the year
+- Increment the year by 3 after each simulation run

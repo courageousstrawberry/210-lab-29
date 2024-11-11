@@ -28,6 +28,7 @@ public:
         time = ti;
     }
 };
+
 // Define main function
 // Initialize a map to store Mars climate data for each year
 // Each key contains an array of lists for surface temperature, sun distance and rock abundance

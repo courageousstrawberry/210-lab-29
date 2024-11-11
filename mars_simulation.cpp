@@ -51,23 +51,50 @@ int main()
         string date;
         double surfaceTemp, sunDistance;
         int time;
-        // Assuming the file has data in the format: date, surfaceTemp, sunDistance, rockAbundance
+        // Assuming the file has data in the format: date, surfaceTemp, sunDistance, time
         istringstream iss(line);
         char comma; // to consume the commas
-        if (!(iss >> date >> comma >> surfaceTemp >> comma >> sunDistance >> comma >> time))
-        {
-            cerr << "Error reading line: " << line << endl;
-            continue;
-        }
-        else {
-            data[date][0].push_back(surfaceTemp);
-            data[date][1].push_back(sunDistance);
-            data[date][2].push_back(time);
-        }
+        string tempStr;
+
+        getline(iss, date, ',');
+
+        getline(iss, tempStr, ',');
+        surfaceTemp = stod(tempStr);
+
+        getline(iss, tempStr, ',');
+        sunDistance = stod(tempStr);
+
+        getline(iss, tempStr);
+        time = stoi(tempStr);
+        
+        cout << "Read line successfully: " << date << ", " << surfaceTemp << ", " << sunDistance << ", " << time << endl;
+        data[date][0].push_back(surfaceTemp);
+        data[date][1].push_back(sunDistance);
+        data[date][2].push_back(time);
     }
     // Close the file
-
     file.close();
+
+    for (const auto& entry : data) {
+        cout << "Date: " << entry.first << endl;
+        cout << "Surface Temperatures: ";
+        for (const auto& temp : entry.second[0]) {
+            cout << temp << " ";
+        }
+        cout << endl;
+
+        cout << "Sun Distances: ";
+        for (const auto& dist : entry.second[1]) {
+            cout << dist << " ";
+        }
+        cout << endl;
+
+        cout << "Local Time: ";
+        for (const auto& rock : entry.second[2]) {
+            cout << rock << " ";
+        }
+        cout << endl;
+    }
 
     // Begin a time-based simulation for environmental changes
     // Randomly pick an index for a year on the map, these will be the starting conditions

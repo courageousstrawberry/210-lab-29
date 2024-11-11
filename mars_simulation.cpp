@@ -7,6 +7,8 @@
 #include <array>
 #include <fstream>
 #include <sstream>
+#include <random>
+#include <ctime>
 
 using namespace std;
 // Define a class to represent Mars as a planet
@@ -67,7 +69,6 @@ int main()
         getline(iss, tempStr);
         time = stoi(tempStr);
         
-        cout << "Read line successfully: " << date << ", " << surfaceTemp << ", " << sunDistance << ", " << time << endl;
         data[date][0].push_back(surfaceTemp);
         data[date][1].push_back(sunDistance);
         data[date][2].push_back(time);
@@ -98,6 +99,11 @@ int main()
 
     // Begin a time-based simulation for environmental changes
     // Randomly pick an index for a year on the map, these will be the starting conditions
+    srand(time(0));
+    int year = rand() % data.size();
+
+    Planet current_conditions(data[year], data[year][0], data[year][1], data[year][2]);
+    
     // For 30 time intervals (each time interval represents 3 earth-years)
     // Randomly pick an index from 1-3,
     // 1 represents a dust storm

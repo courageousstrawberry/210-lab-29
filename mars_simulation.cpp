@@ -135,12 +135,11 @@ int main()
 
     // Begin a time-based simulation for environmental changes
     // Randomly pick an index for a year on the map, these will be the starting conditions
-
     srand(time(0));
     auto it = data.begin();
     advance(it, rand() % data.size());
 
-    Planet current(it->first, it->second[0].front(), it->second[1].front(), it->second[2].front());
+    Planet current(2024, it->second[0].front(), it->second[1].front(), it->second[2].front());
     current.display_info();
 
     // For 30 time intervals (each time interval represents 3 earth-years)

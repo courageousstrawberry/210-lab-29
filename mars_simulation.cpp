@@ -33,7 +33,7 @@ public:
 // Each key contains an array of lists for surface temperature, sun distance and rock abundance
 int main()
 {
-    map<string, array<list<double>, 3>> data;
+    map<int, array<list<double>, 3>> data;
     
     fstream file;
     // Open an external file to read initial data about previous climate conditions on Mars
@@ -56,54 +56,64 @@ int main()
         // Assuming the file has data in the format: date, surfaceTemp, sunDistance, time
         istringstream iss(line);
         char comma; // to consume the commas
-        string tempStr;
+        if (getline(iss, date, ',') && 
+            iss >> surfaceTemp >> comma >> ws >> sunDistance >> comma >> ws >> time) {
 
-        getline(iss, date, ',');
+            // Extract the year from the date string (e.g., "2002-03-05" -> 2002)
+            int year = stoi(date.substr(0, 4));
+            
+            // Push data into the corresponding lists for that year
+            data[year][0].push_back(surfaceTemp); // Surface temperatures
+            data[year][1].push_back(sunDistance);   // Solar distances
+            data[year][2].push_back(time); 
+        }
+        else {
+            cerr << "Error reading line: " << line << endl;
+        }
 
-        getline(iss, tempStr, ',');
-        surfaceTemp = stod(tempStr);
-
-        getline(iss, tempStr, ',');
-        sunDistance = stod(tempStr);
-
-        getline(iss, tempStr);
-        time = stoi(tempStr);
-        
-        data[date][0].push_back(surfaceTemp);
-        data[date][1].push_back(sunDistance);
-        data[date][2].push_back(time);
     }
     // Close the file
     file.close();
 
-    for (const auto& entry : data) {
-        cout << "Date: " << entry.first << endl;
+    int year = 2002;
+    if (data.find(year) != data.end()) {
+        cout << "Data for year " << year << ":\n";
         cout << "Surface Temperatures: ";
-        for (const auto& temp : entry.second[0]) {
+        for (const auto& temp : data[year][0]) {
             cout << temp << " ";
         }
         cout << endl;
-
-        cout << "Sun Distances: ";
-        for (const auto& dist : entry.second[1]) {
+        
+        cout << "Solar Distances: ";
+        for (const auto& dist : data[year][1]) {
             cout << dist << " ";
         }
         cout << endl;
-
-        cout << "Local Time: ";
-        for (const auto& rock : entry.second[2]) {
-            cout << rock << " ";
+        
+        cout << "Rock Abundances (Time): ";
+        for (const auto& abundance : data[year][2]) {
+            cout << abundance << " ";
         }
         cout << endl;
+    } else {
+        cout << "No data found for year " << year << endl;
     }
+    
 
     // Begin a time-based simulation for environmental changes
     // Randomly pick an index for a year on the map, these will be the starting conditions
+    /*
     srand(time(0));
-    int year = rand() % data.size();
+    auto it = data.begin();
+    advance(it, rand() % data.size());
 
-    Planet current_conditions(data[year], data[year][0], data[year][1], data[year][2]);
-    
+    string selected_date = it->first;
+    double initial_temperature = it->second[0].front();
+    double initial_sun_distance = it->second[1].front();
+    int initial_time = it->second[2].front();
+
+    Planet current_conditions(it->first, it->second[0].front(), data[year][1], data[year][2]);
+    */
     // For 30 time intervals (each time interval represents 3 earth-years)
     // Randomly pick an index from 1-3,
     // 1 represents a dust storm
